@@ -1,21 +1,32 @@
 import React from 'react';
 
 // import third party libraries 
-import { createStackNavigator } from 'react-navigation'
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'
 
 // import screens 
 import MainScreen from './screens/MainScreen'
 import DetailScreen from './screens/DetailScreen'
+import FavoritesScreen from './screens/FavoritesScreen'
 
-const RootStack = createStackNavigator({
+const FavoritesNavStack = createStackNavigator({
+  Favorite: FavoritesScreen, 
+  Detail: DetailScreen
+})
+
+const HomeNavStack = createStackNavigator({
   Home: MainScreen,
   Detail: DetailScreen
+})
+
+const TabStack = createBottomTabNavigator({
+  Search: HomeNavStack, 
+  Favorites: FavoritesNavStack, 
 })
 
 export default class App extends React.Component {
   render() {
     return (
-      <RootStack/>
+      <TabStack/>
     );
   }
 }
