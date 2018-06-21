@@ -31,10 +31,12 @@ export default class DetailScreen extends Component {
 
   static navigationOptions = ({ navigation }) => ({
     title: `${navigation.state.params.beer.name}`, 
-    headerTitleStyle: {textAlign: 'center', alignSelf: 'center'},
-    headerStyle: {backgroundColor: 'powderblue'},
+    headerTitleStyle: {textAlign: 'center', alignSelf: 'center', color: 'white', fontSize: 25},
+    headerStyle: {backgroundColor: 'tomato'},
+    headerTintColor: 'white',
     headerRight: (
       <Button
+        color='white'
         onPress={() => {
 
           AsyncStorage.getAllKeys((error, keys) => {
