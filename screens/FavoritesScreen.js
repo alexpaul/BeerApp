@@ -4,6 +4,7 @@ import { View,
          StyleSheet, 
          ScrollView,
          AsyncStorage,
+         RefreshControl, 
          TouchableHighlight, 
          Button, 
          FlatList, 
@@ -14,15 +15,18 @@ const beers = []
 export default class FavoritesScreen extends Component {
   constructor() {
     super() 
-    console.log('constructor')
     this.state = {
       favorites: [],
+      refreshing: false, 
     }
   }
 
   componentDidMount() {
     super.componentDidMount
-    console.log('componentDidMount')
+    this.fetchFavorites() 
+  }
+
+  fetchFavorites() {
     AsyncStorage.getAllKeys((error, keys) => {
       if(error !== null) {
         alert('error retrieving keys')
@@ -38,14 +42,20 @@ export default class FavoritesScreen extends Component {
           }).catch((error) => {
             console.log('promise is rejected with error: ' + error)
           })
+          this.setState({
+            refreshing: false
+          })
         })
       }
     })
   }
 
-  componentWillMount() {
-    super.componentWillMount
-    console.log('componentWillMount')
+  onRefresh() {
+    this.setState({
+      refreshing: true
+    })
+    beers = []
+    this.fetchFavorites() 
   }
 
   async retrieveItem(key) {
@@ -67,7 +77,6 @@ export default class FavoritesScreen extends Component {
   render() {
     const lineSeperator = <View style={{backgroundColor:'lightgray', height: 0.5}}/>
     const { favorites } = this.state 
-
     return(
       <View style={styles.container}>
         <FlatList
@@ -88,7 +97,11 @@ export default class FavoritesScreen extends Component {
                                       <Text style={styles.emptyText}>List is empty</Text>
                                     </View>}
           keyExtractor={(item, index) => `${item.id}`}
-          //keyExtractor={(item, index) => `${index}`}
+          refreshControl={<RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this.onRefresh.bind(this)}
+                          />
+          }
         />
       </View>
     )
