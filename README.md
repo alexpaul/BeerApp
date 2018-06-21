@@ -66,6 +66,6 @@ async retrieveItem(key) {
 ```
 
 <p align="center">
-  <img src="" width="277" height="602" />
+  <img src="https://github.com/alexpaul/BeerApp/blob/master/assets/beer-app.gif" width="277" height="602" />
 </p> 
 
