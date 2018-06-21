@@ -72,13 +72,14 @@ export default class FavoritesScreen extends Component {
     }
   }
 
-  static navigationOptions = ({navigation}) => ({
+  static navigationOptions = ({ navigation }) => ({
     title: 'Favorites', 
-    headerStyle: {backgroundColor: 'powderblue'},
+    headerTitleStyle: {textAlign: 'center', alignSelf: 'center', color: 'white', fontSize: 25},
+    headerStyle: {backgroundColor: 'tomato'},
   })
 
   render() {
-    const lineSeperator = <View style={{backgroundColor:'lightgray', height: 0.5}}/>
+    const lineSeperator = <View style={{backgroundColor:'tomato', height: 0.5}}/>
     const { favorites } = this.state 
     return(
       <View style={styles.container}>

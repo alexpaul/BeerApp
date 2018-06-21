@@ -32,7 +32,7 @@ const cities = [{key: 'London'},
                 {key: 'Cairns'}, 
                ]
 
-const itemSeperator = <View style={{backgroundColor:'powderblue', height: 0.5}}/>
+// const itemSeperator = <View style={{backgroundColor:'tomato', height: 0.5}}/>
 
 
 export default class MainScreen extends Component {
@@ -51,11 +51,12 @@ export default class MainScreen extends Component {
 
   static navigationOptions = ({ navigation }) => ({
     title: 'Beer and Food', 
-    headerTitleStyle: {textAlign: 'center', alignSelf: 'center'},
-    headerStyle: {backgroundColor: 'powderblue'},
+    headerTitleStyle: {textAlign: 'center', alignSelf: 'center', color: 'white', fontSize: 25},
+    headerStyle: {backgroundColor: 'tomato'},
   })
 
   search(keyword) {
+    if(keyword === '') return 
     searchBeersByFood(keyword) 
     .then(beers => {
       this.setState({
@@ -79,6 +80,7 @@ export default class MainScreen extends Component {
 
   render() {
     const { query } = this.state
+    const itemSeperator = <View style={{backgroundColor:'tomato', height: 0.5}}/>
 
     return(
       <View 
@@ -107,7 +109,6 @@ export default class MainScreen extends Component {
                                     <BeerCard 
                                       beer={item}
                                     />
-                                    {/* <Text style={styles.itemText}>{item.name}</Text> */}
                                   </TouchableHighlight>
           }
           keyExtractor={item => `${item.id}`}
