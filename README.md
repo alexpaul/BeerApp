@@ -40,6 +40,31 @@ const TabStack = createBottomTabNavigator(
 )
 ```
 
+**Saving an item with AsyncStorage**  
+```javascript
+AsyncStorage.setItem(`${beerProp.id}`, JSON.stringify(beerProp), (err, result) => {
+  if(err) {
+    console.log('there was an error: ' + err)
+  } else {
+    alert(beerProp.name + 'added to Favorites' + ' with id: ' + beerProp.id)
+  }
+})
+```
+
+**Retrieving an item with AsynStorage**  
+```javascript 
+async retrieveItem(key) {
+  try {
+    const retrievedItem = await AsyncStorage.getItem(key)
+    const item = JSON.parse(retrievedItem)
+    return item 
+  } catch(error) {
+    console.log(error.message)
+    return 
+  }
+}
+```
+
 <p align="center">
   <img src="" width="277" height="602" />
 </p> 
