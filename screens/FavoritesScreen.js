@@ -10,6 +10,9 @@ import { View,
          FlatList, 
        } from 'react-native'
 
+// import custom components 
+import BeerCard from '../components/BeerCard'
+
 const beers = []
 
 export default class FavoritesScreen extends Component {
@@ -81,16 +84,19 @@ export default class FavoritesScreen extends Component {
       <View style={styles.container}>
         <FlatList
           data={this.state.favorites}
-          renderItem={({item}) => <TouchableHighlight 
+          renderItem={({item}) => 
+                                  <TouchableHighlight 
                                     style={styles.item}
                                     onPress={() => this.props.navigation.navigate('Detail', {
                                       beer: item,
                                     })}
                                     underlayColor='white'
                                   >
-                                    <Text style={styles.itemText}>{item.name}</Text>
+                                    <BeerCard 
+                                      beer={item}
+                                    />
                                   </TouchableHighlight>
-        }
+          }
           
           ItemSeparatorComponent={() => lineSeperator}
           ListEmptyComponent={() => <View style={styles.emptyList}>
@@ -117,7 +123,7 @@ const styles = StyleSheet.create({
     flex: 1, 
     alignItems: 'flex-start',
     justifyContent: 'center',
-    height: 80, 
+    height: 100, 
   }, 
   itemText: {
     fontSize: 17, 

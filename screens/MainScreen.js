@@ -9,6 +9,9 @@ import { View,
 // import third party libraries
 import { SearchBar } from 'react-native-elements'
 
+// custom components 
+import BeerCard from '../components/BeerCard'
+
 // custom functions 
 import { searchBeersByFood } from '../helpers/PunkAPI'
 
@@ -93,15 +96,20 @@ export default class MainScreen extends Component {
         />
         <FlatList
           data={this.state.beers}
-          renderItem={({item}) => <TouchableHighlight 
+          renderItem={({item}) => 
+                                  <TouchableHighlight 
                                     style={styles.item}
                                     onPress={() => this.props.navigation.navigate('Detail', {
                                       beer: item,
                                     })}
                                     underlayColor='white'
                                   >
-                                    <Text style={styles.itemText}>{item.name}</Text>
-                                  </TouchableHighlight>}
+                                    <BeerCard 
+                                      beer={item}
+                                    />
+                                    {/* <Text style={styles.itemText}>{item.name}</Text> */}
+                                  </TouchableHighlight>
+          }
           keyExtractor={item => `${item.id}`}
           ItemSeparatorComponent={() => itemSeperator}
         />
