@@ -2,6 +2,10 @@
 
 A react-native app. The beer-app uses the PunkAPI beer API to query beers based on your food choice. Favorites persist in the app using **AsyncStorage**  
 
+[PunkAPI](https://punkapi.com/documentation/v2)
+
+[PunkAPI Github](https://github.com/samjbmason/punkapi-db)
+
 >run ```npm install``` prior to starting the server with ```npm start```
 
 ## Packages used 
