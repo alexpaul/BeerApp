@@ -11,6 +11,7 @@ import { SearchBar } from 'react-native-elements'
 
 // custom components 
 import BeerCard from '../components/BeerCard'
+import FadeView from '../components/FadeView'
 
 // custom functions 
 import { searchBeersByFood } from '../helpers/PunkAPI'

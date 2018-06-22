@@ -1,13 +1,18 @@
 import React from 'react';
+import { Animated } from 'react-native'
 
 // import third party libraries 
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'
 import { Ionicons } from 'react-native-vector-icons'
+import TimerMixin from 'react-timer-mixin'
 
 // import screens 
 import MainScreen from './screens/MainScreen'
 import DetailScreen from './screens/DetailScreen'
 import FavoritesScreen from './screens/FavoritesScreen'
+
+// import custom components 
+import FadeView from './components/FadeView'
 
 const FavoritesNavStack = createStackNavigator({
   Favorite: FavoritesScreen, 
@@ -45,10 +50,26 @@ const TabStack = createBottomTabNavigator(
 )
 
 export default class App extends React.Component {
+  constructor() {
+    super() 
+    this.state = {
+      isStopAnimating: false 
+    }
+  }
+
+  componentDidMount() {
+    super.componentDidMount
+    setTimeout(() => {
+      this.setState({
+        isStopAnimating: true
+      })
+    }, 2000);
+  }
+
   render() {
-    return (
-      <TabStack/>
-    );
+    const { isStopAnimating } = this.state 
+    return (isStopAnimating) ? <TabStack/> : <FadeView/>
+    //return <FadeView />
   }
 }
 
