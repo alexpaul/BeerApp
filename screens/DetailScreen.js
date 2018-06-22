@@ -29,6 +29,16 @@ export default class DetailScreen extends Component {
     alert('Favorite Added')
   }
 
+  setItem() {
+    AsyncStorage.setItem(`${beerProp.id}`, JSON.stringify(beerProp), (err, result) => {
+      if(err) {
+        console.log('there was an error: ' + err)
+      } else {
+        alert(beerProp.name + ' added to Favorites' + ' with id: ' + beerProp.id)
+      }
+    })
+  }
+
   static navigationOptions = ({ navigation }) => ({
     title: `${navigation.state.params.beer.name}`, 
     headerTitleStyle: {textAlign: 'center', alignSelf: 'center', color: 'white', fontSize: 25},
@@ -38,43 +48,31 @@ export default class DetailScreen extends Component {
       <Button
         color='white'
         onPress={() => {
-
+          let willSetItem = false 
           AsyncStorage.getAllKeys((error, keys) => {
             console.log('keys ' + keys)
             if(keys === null) {
-              AsyncStorage.setItem(`${beerProp.id}`, JSON.stringify(beerProp), (err, result) => {
-                if(err) {
-                  console.log('there was an error: ' + err)
-                } else {
-                  alert(beerProp.name + 'added to Favorites' + ' with id: ' + beerProp.id)
-                }
-              })
+              willSetItem = true 
             } else {
               const results = keys.filter((key) => key === `${beerProp.id}`)
               console.log(results.length) 
               if(results.length === 0) {
+                willSetItem = true
+              } else {
+                willSetItem = false
+                alert(beerProp.name + ' is already in your favorites')
+              }
+              if(willSetItem) {
                 AsyncStorage.setItem(`${beerProp.id}`, JSON.stringify(beerProp), (err, result) => {
                   if(err) {
                     console.log('there was an error: ' + err)
                   } else {
-                    alert(beerProp.name + 'added to Favorites' + ' with id: ' + beerProp.id)
+                    alert(beerProp.name + ' added to Favorites' + ' with id: ' + beerProp.id)
                   }
                 })
-              } else {
-                alert(beerProp.name + ' is already in your favorites')
               }
             }
           })
-
-          // AsyncStorage.setItem(`${beerProp.id}`, JSON.stringify(beerProp), (err, result) => {
-          //   if(err) {
-          //     console.log('there was an error: ' + err)
-          //   } else {
-          //     alert(beerProp.name + 'added to Favorites' + ' with id: ' + beerProp.id)
-          //   }
-          // })
-
-
         }}
         title='Favorite'
       />
